@@ -290,12 +290,13 @@ sub generate {
             $input = $self->_input( $field, $data );
         }
         $input =~ s/  +/ /g;     # remove extra whitespace.
-        $input =~ s/\s+>/>/g;    # cleanup space before closing >
-        push @generated,
-            {
+        $input =~ s/\s+>/>/g;    # cleanup space before closing >  
+        my $row = {
             label => $self->_label($field),
-            input => $input
+            input => $input,
+            value => $data ? $data->{ $field->{name} } : undef ,
             };
+        push @generated, $row;
     }
     return \@generated;
 }
